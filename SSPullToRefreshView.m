@@ -6,6 +6,10 @@
 //  Copyright (c) 2012 Sam Soffes. All rights reserved.
 //
 
+#if ! __has_feature(objc_arc)
+#warning This file must be compiled with ARC. Use -fobjc-arc flag (or convert project to ARC).
+#endif
+
 #import "SSPullToRefreshView.h"
 #import "SSPullToRefreshDefaultContentView.h"
 
@@ -100,19 +104,10 @@
 	[self _setContentInsetTop:_topInset];
 }
 
-
-#pragma mark - NSObject
-
-- (void)dealloc {
-	self.scrollView = nil;
-	self.delegate = nil;
-	dispatch_release(_animationSemaphore);
-}
-
-
 #pragma mark - UIView
 
-- (void)removeFromSuperview {
+- (void)removeFromSuperview
+{
 	self.scrollView = nil;
 	[super removeFromSuperview];
 }
